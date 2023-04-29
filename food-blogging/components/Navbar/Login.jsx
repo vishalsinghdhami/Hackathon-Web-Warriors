@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "@/styles/utils/Login.module.scss";
 import Cta from "../utils/Cta";
+import axios from "axios";
 export default function Login({ setIsOpen }) {
   const [type, setType] = useState("");
 
@@ -73,18 +74,19 @@ function SignUpComp({ setIsOpen, setType }) {
   const handleValueChange = (item) => (e) => {
     setsignUpData((prev) => ({ ...prev, [item]: e.target.value }));
   };
-  function handleSubmitForm() {
+  function handleSubmitForm(e) {
+    e.preventDefault();
     axios
-      .post("/", )
+      .post("https://savorshare.onrender.com/auth/signup", signUpData)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   }
   return (
-    <form className={styles.signup}>
+    <form onSubmit={handleSubmitForm} className={styles.signup}>
       <div className={styles.header}>
         <h2 className={"heading"}>SignUp</h2>
         <button onClick={() => setIsOpen(false)}>
@@ -125,9 +127,7 @@ function SignUpComp({ setIsOpen, setType }) {
           />
         </div>
         <div className={styles.footer}>
-          <Cta onClick={handleSubmitForm} className={styles.cta}>
-            Create Account
-          </Cta>
+          <Cta className={styles.cta}>Create Account</Cta>
           <p>
             Already have an account?{" "}
             <button
