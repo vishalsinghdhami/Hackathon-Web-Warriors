@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-const MyModal = ({isOpen, setIsOpen}) => {
+const MyModal = ({ isOpen, setIsOpen, children }) => {
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.6)",

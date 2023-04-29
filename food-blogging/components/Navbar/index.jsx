@@ -12,9 +12,10 @@ import {
 import { IoLogoPinterest, IoLogoLinkedin } from "react-icons/io";
 import MyModal from "../utils/Modal";
 import { useState } from "react";
+import Login from "./Login";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const links = [
     { logo: <TiSocialTumbler />, link: "https://www.tumbler.com" },
@@ -65,7 +66,9 @@ export default function Navbar() {
           </Container>
         </div>
       </nav>
-      <MyModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <MyModal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <Login setIsOpen={setIsOpen} />
+      </MyModal>
     </>
   );
 }
