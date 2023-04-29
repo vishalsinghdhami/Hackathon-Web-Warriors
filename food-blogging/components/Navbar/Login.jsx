@@ -2,15 +2,31 @@ import React, { useState } from "react";
 import styles from "@/styles/utils/Login.module.scss";
 import Cta from "../utils/Cta";
 import axios from "axios";
-export default function Login({ setIsOpen }) {
+export default function Login({ setIsOpen, isLoggedIn, setIsLoggedIn }) {
   const [type, setType] = useState("");
-
+  const [message, setMessage] = useState("");
   if (type === "login")
-    return <LoginComp setIsOpen={setIsOpen} setType={setType} />;
-  return <SignUpComp setIsOpen={setIsOpen} setType={setType} />;
+    return (
+      <LoginComp
+        setIsOpen={setIsOpen}
+        message={message}
+        setMessage={setMessage}
+        setType={setType}
+        setIsLoggedIn={setIsLoggedIn}
+      />
+    );
+  return (
+    <SignUpComp
+      setMessage={setMessage}
+      message={message}
+      setIsOpen={setIsOpen}
+      setType={setType}
+      setIsLoggedIn={setIsLoggedIn}
+    />
+  );
 }
 
-function LoginComp({ setType, setIsOpen }) {
+function LoginComp({ setType, setIsOpen, message, setMessage, setIsLoggedIn }) {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -18,7 +34,24 @@ function LoginComp({ setType, setIsOpen }) {
   const handleValueChange = (item) => (e) => {
     setLoginData((prev) => ({ ...prev, [item]: e.target.value }));
   };
-  function handleSubmitForm() {}
+  function handleSubmitForm(e) {
+    e.preventDefault();
+    axios
+      .post("https://savorshare.onrender.com/auth/login", loginData)
+      .then(function (response) {
+        console.log(response.data);
+        if (!response.data.user) {
+          setMessage(response.data.message);
+          return;
+        }
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setIsLoggedIn(true);
+        setIsOpen(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   return (
     <div>
       <form className={styles.signup}>
@@ -42,7 +75,7 @@ function LoginComp({ setType, setIsOpen }) {
               onChange={handleValueChange("password")}
               value={loginData.password}
               placeholder="Password"
-              type="text"
+              type="password"
             />
           </div>
           <div className={styles.footer}>
@@ -64,7 +97,13 @@ function LoginComp({ setType, setIsOpen }) {
     </div>
   );
 }
-function SignUpComp({ setIsOpen, setType }) {
+function SignUpComp({
+  setIsOpen,
+  setType,
+  message,
+  setMessage,
+  setIsLoggedIn,
+}) {
   const [signUpData, setsignUpData] = useState({
     name: "",
     email: "",
@@ -115,7 +154,7 @@ function SignUpComp({ setIsOpen, setType }) {
             value={signUpData.password}
             placeholder="Password"
             onChange={handleValueChange("password")}
-            type="text"
+            type="password"
           />
         </div>
         <div className={styles.input}>
@@ -123,7 +162,7 @@ function SignUpComp({ setIsOpen, setType }) {
             value={signUpData.confirmPassword}
             placeholder="Confirm password"
             onChange={handleValueChange("confirmPassword")}
-            type="text"
+            type="password"
           />
         </div>
         <div className={styles.footer}>

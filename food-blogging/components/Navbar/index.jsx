@@ -11,12 +11,13 @@ import {
 } from "react-icons/ti";
 import { IoLogoPinterest, IoLogoLinkedin } from "react-icons/io";
 import MyModal from "../utils/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./Login";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(true);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
   const links = [
     { logo: <TiSocialTumbler />, link: "https://www.tumbler.com" },
     { logo: <TiSocialYoutube />, link: "https://www.youtube.com" },
@@ -26,6 +27,14 @@ export default function Navbar() {
     { logo: <TiSocialFacebook />, link: "https://www.facebook.com" },
   ];
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setUser(user);
+  }, [isLoggedIn]);
+  function handleLogOut() {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+  }
   return (
     <>
       <nav className={styles.Nav}>
@@ -60,14 +69,25 @@ export default function Navbar() {
               </li>
             </ul>
             <SearchBar />
-            <Cta onClick={() => setIsOpen(true)} className={styles.login}>
-              Login
-            </Cta>
+            {user !== null ? (
+              <>
+                <p>{user.name.toUpperCase()}</p>
+                <Cta onClick={handleLogOut}>Logout</Cta>
+              </>
+            ) : (
+              <Cta onClick={() => setIsOpen(true)} className={styles.login}>
+                Login
+              </Cta>
+            )}
           </Container>
         </div>
       </nav>
       <MyModal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Login setIsOpen={setIsOpen} />
+        <Login
+          setIsLoggedIn={setIsLoggedIn}
+          isLoggedIn={isLoggedIn}
+          setIsOpen={setIsOpen}
+        />
       </MyModal>
     </>
   );
