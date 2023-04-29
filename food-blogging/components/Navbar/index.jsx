@@ -10,8 +10,12 @@ import {
   TiSocialFacebook,
 } from "react-icons/ti";
 import { IoLogoPinterest, IoLogoLinkedin } from "react-icons/io";
+import MyModal from "../utils/Modal";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const links = [
     { logo: <TiSocialTumbler />, link: "https://www.tumbler.com" },
     { logo: <TiSocialYoutube />, link: "https://www.youtube.com" },
@@ -22,41 +26,46 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={styles.Nav}>
-      <div className={styles.Contact}>
-        <Container className={styles.Container}>
-          <ul className={styles.Left}>
-            <li>
-              <Link href={"/about"}>About</Link>
-            </li>
-            <li>
-              <Link href={"/contact"}>Contact</Link>
-            </li>
-          </ul>
-          <ul className={styles.right}>
-            {links.map((link) => (
-              <li key={link.link}>
-                <Link href={link.link}>{link.logo}</Link>
+    <>
+      <nav className={styles.Nav}>
+        <div className={styles.Contact}>
+          <Container className={styles.Container}>
+            <ul className={styles.Left}>
+              <li>
+                <Link href={"/about"}>About</Link>
               </li>
-            ))}
-          </ul>
-        </Container>
-      </div>
-      <div className={styles.Main}>
-        <Container className={styles.Container}>
-          <div className={styles.Logo}>SavorShare</div>
-          <ul className={styles.NavLinks}>
-            <li>
-              <Link href={"/recipes"}>Recipes</Link>
-            </li>
-            <li>
-              <Link href={"/blog"}>Blog</Link>
-            </li>
-          </ul>
-          <SearchBar />
-          <Cta className={styles.login}>Login</Cta>
-        </Container>
-      </div>
-    </nav>
+              <li>
+                <Link href={"/contact"}>Contact</Link>
+              </li>
+            </ul>
+            <ul className={styles.right}>
+              {links.map((link) => (
+                <li key={link.link}>
+                  <Link href={link.link}>{link.logo}</Link>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </div>
+        <div className={styles.Main}>
+          <Container className={styles.Container}>
+            <div className={styles.Logo}>SavorShare</div>
+            <ul className={styles.NavLinks}>
+              <li>
+                <Link href={"/recipes"}>Recipes</Link>
+              </li>
+              <li>
+                <Link href={"/blog"}>Blog</Link>
+              </li>
+            </ul>
+            <SearchBar />
+            <Cta onClick={() => setIsOpen(true)} className={styles.login}>
+              Login
+            </Cta>
+          </Container>
+        </div>
+      </nav>
+      <MyModal isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
   );
 }

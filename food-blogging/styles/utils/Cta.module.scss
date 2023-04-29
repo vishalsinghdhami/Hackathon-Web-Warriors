@@ -1,12 +1,16 @@
 .Cta {
-  color: var(--red);
-  border: 1px solid currentColor;
+  color: white;
   padding: 0.3rem 1rem;
   border-radius: 0.2rem;
+  background-color: var(--red);
   transition: all 150ms ease-in-out;
+  text-transform: capitalize;
+  border: solid 1px var(--red);
+  font-weight: bold;
 
   &:hover {
-    background-color: var(--red);
-    color: white;
+    color: var(--red);
+    background-color: white;
+    border: solid 1px var(--red);
   }
 }
