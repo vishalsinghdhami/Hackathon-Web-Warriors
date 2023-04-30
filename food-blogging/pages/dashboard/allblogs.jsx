@@ -4,7 +4,7 @@ import { BsPersonFill, BsThreeDotsVertical} from 'react-icons/bs';
 import {IoMdPhotos } from 'react-icons/io'
 import { data } from '@/data/data.js';
 import { useState,useEffect } from 'react';
-const allblogs = () => {
+const Allblogs = () => {
   const [blogsData, setBlogData] = useState([]);
 //use effect frontend-backend logic
 useEffect(() => {

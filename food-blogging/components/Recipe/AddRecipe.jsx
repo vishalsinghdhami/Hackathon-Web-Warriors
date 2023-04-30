@@ -59,7 +59,7 @@ export default function AddRecipe() {
         <input id="recipe-image" placeholder="add image" type="file" />
       </div>
       <div className={styles.input}>
-        <label htmlFor="recipe title">Title</label>
+        <label htmlFor="recipe title">Title: </label>
         <input
           value={recipe.title}
           onChange={handleChange("title")}
@@ -68,27 +68,30 @@ export default function AddRecipe() {
         />
       </div>
       <div className={styles.input}>
-        <label htmlFor="ingredients"></label>
+        <label htmlFor="ingredients">ingredients: </label>
         <input
           onChange={handleChange("ingredients")}
           type="text"
           placeholder="ingredients"
         />
       </div>
-      <div className={styles.cookingSteps}>
+      <div className={styles.input}>
+        <label>Steps: </label>
         {renderSteps()}
-        <button onClick={() => addStep("")}>Add Step</button>
+        <button className={styles.add} onClick={() => addStep("")}>
+          Add Step
+        </button>
       </div>
       <div className={styles.input}>
-        <label htmlFor="typeofcuisine">typeofcuisine</label>
+        <label htmlFor="typeofcuisine">typeofcuisine:</label>
         <input type="text" name="typeofcuisine" id="typeofcuisine" />
       </div>
       <div className={styles.input}>
-        <label htmlFor="category">Category</label>
+        <label htmlFor="category">Category:</label>
         <input type="text" name="category" id="category" />
       </div>
       <div className={styles.input}>
-        <label htmlFor="restriction">Dietery restriction</label>
+        <label htmlFor="restriction">Dietery restriction:</label>
         <input type="text" name="restriction" id="restriction" />
       </div>
       <Cta> Post </Cta>
