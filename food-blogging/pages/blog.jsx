@@ -15,12 +15,13 @@ function Blogs() {
   const [newcomment, setNewcomment] = useState("");
   const [email, setemail] = useState("");
 
-  const addComment = async (blogid) => {
-    axios.post("https://savorshare.onrender.com/blog/addcomment", {
-      email: email,
-      comment: newcomment,
-      blogid: blogid,
-    });
+  const addComment = async (blogid, index) => {
+    let ret = { email: email, comment: newcomment, blogid: blogid };
+    let sample = [...allblogs];
+    sample[index].comments.push(ret);
+
+    setAllblogs(sample);
+    await axios.post("https://savorshare.onrender.com/blog/addcomment", ret);
   };
 
   const [show, setShow] = useState(false);

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import axios from "axios";
 import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs";
 import { IoMdPhotos } from "react-icons/io";
@@ -10,7 +11,7 @@ const Allblogs = () => {
   useEffect(() => {
     axios
       .post("https://savorshare.onrender.com/blog/getbyid", {
-        userid: localStorage.getItem("user")._id,
+        userid: JSON.parse(localStorage.getItem("user"))._id
       })
       .then((response) => {
         // handle the response data
@@ -26,7 +27,12 @@ const Allblogs = () => {
   return (
     <div className="bg-gray-100 min-h-screen" style={{ fontSize: "18px" }}>
       <div className="flex justify-between p-4">
-        <h2>All Blogs</h2>
+        <h2>My All Blogs</h2>
+        <Link href="/dashboard/allrecipes">
+          <button className="bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">
+           My All Recipes
+          </button>
+          </Link>
       </div>
       <div className="p-4">
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">

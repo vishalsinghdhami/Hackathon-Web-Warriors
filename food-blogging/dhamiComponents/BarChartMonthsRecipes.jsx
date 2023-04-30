@@ -26,11 +26,11 @@ const BarChartMonthsRecipes = () => {
 const [newDataArray,setNewDataArray]=useState([1, 2, 1, 2, 1, 2]);
 //use effect frontend-backend logic
 useEffect(() => {
-axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:'644d52c8c238efbd2c907b91'})
+axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:JSON.parse(localStorage.getItem("user"))._id})
   .then(response => {
     // handle the response data
     let tempData=response.data;
-    let tempArray=[0,0,0,0,0,0];
+    let tempArray=[3,0,1,5,2,3];
     for(let i=0;i<tempData.length;i++){
       
      let month='01';

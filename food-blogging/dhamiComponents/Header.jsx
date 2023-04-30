@@ -7,7 +7,7 @@ const Header = () => {
       <div>
         <Link href="/dashboard/allrecipes">
           <button className="bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">
-            All Recipes
+           My All Recipes
           </button>
         </Link>
         <Link href="/dashboard/allblogs">
@@ -15,7 +15,7 @@ const Header = () => {
             style={{ marginLeft: "15px" }}
             className="bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
           >
-            All Blogs
+           My All Blogs
           </button>
         </Link>
       </div>
