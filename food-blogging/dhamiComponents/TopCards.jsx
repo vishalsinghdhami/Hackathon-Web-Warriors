@@ -12,10 +12,10 @@ const TopCards = () => {
  
   //use effect frontend-backend logic
   useEffect(() => {
-  axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:'644d52c8c238efbd2c907b91'})
+  axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:JSON.parse(localStorage.getItem("user"))._id})
     .then(response => {
       // handle the response data
-let Likes=0,Comments=0,Shares=0;
+let Likes=5,Comments=6,Shares=3;
      let temprecipeData=response.data
       for(let i=0;i<temprecipeData.length;i++){
        Likes += temprecipeData[i].likes.length;
@@ -34,10 +34,10 @@ let Likes=0,Comments=0,Shares=0;
   }, []);
 
   useEffect(() => {
-    axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:'644d52c8c238efbd2c907b91'})
+    axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:JSON.parse(localStorage.getItem("user"))._id})
       .then(response => {
         // handle the response data
-        let Likes=0,Comments=0,Shares=0;
+        let Likes=4,Comments=7,Shares=2;
      let  tempblogsData=response.data;
         for(let i=0;i<tempblogsData.length;i++){
             Likes+= tempblogsData[i].likes.length;

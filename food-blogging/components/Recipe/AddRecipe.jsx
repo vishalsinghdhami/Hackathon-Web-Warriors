@@ -26,11 +26,14 @@ export default function AddRecipe({ setIsOpen }) {
   });
   const [imageUpload, setImageUpload] = useState(null);
   const imagesListRef = ref(storage, "data/");
-  const uploadFile = () => {
+  const uploadFile = (e) => {
+    e.preventDefault();
+
     if (imageUpload == null) return;
-    const imageRef = ref(storage, `data/${imageUpload.name}`);
+    const imageRef = ref(storage, `data/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
+        console.log(url, "recipe url");
         setRecipe((prev) => ({
           ...prev,
           photos: { type: "image", url: url },
@@ -94,6 +97,7 @@ export default function AddRecipe({ setIsOpen }) {
     axios
       .post("https://savorshare.onrender.com/recipe/add", recipe)
       .then((data) => console.log(data.data));
+    setIsOpen(false);
   }
   return (
     <form onSubmit={submitForm} className={styles.form}>
@@ -109,7 +113,13 @@ export default function AddRecipe({ setIsOpen }) {
             setImageUpload(event.target.files[0]);
           }}
         />
-        <span onClick={uploadFile}> Upload Image</span>
+        <button
+          style={{ border: "1px solid", backgroundColor: "#d63031" }}
+          onClick={uploadFile}
+        >
+          {" "}
+          Upload Image
+        </button>
       </div>
       <div className={styles.input}>
         <label htmlFor="recipe title">Title: </label>
@@ -166,7 +176,9 @@ export default function AddRecipe({ setIsOpen }) {
           onChange={handleChange("restriction")}
         />
       </div>
-      <Cta type="submit">post</Cta>
+      <Cta className={styles.cta} type="submit">
+        post
+      </Cta>
     </form>
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
+import Link from "next/link";
 import axios from "axios";
 import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs";
 import { GiCook } from "react-icons/gi";
-import { data } from "@/data/data.js";
 import { useState, useEffect } from "react";
 const Allrecipes = () => {
   //use effect frontend-backend logic
@@ -12,7 +12,7 @@ const Allrecipes = () => {
   useEffect(() => {
     axios
       .post("https://savorshare.onrender.com/recipe/getbyid", {
-        userid: "644d52c8c238efbd2c907b91",
+        userid: JSON.parse(localStorage.getItem("user"))._id,
       })
       .then((response) => {
         // handle the response data
@@ -31,8 +31,15 @@ const Allrecipes = () => {
       style={{ fontSize: "18px" }}
     >
       <div className="flex justify-between p-4">
-        <h2>All Recipes</h2>
-        <h2>Welcome Back, Clint</h2>
+        <h2>My All Recipes</h2>
+        <Link href="/dashboard/allblogs">
+          <button
+            style={{ marginLeft: "15px" }}
+            className="bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
+          >
+            My All Blogs
+          </button>
+        </Link>
       </div>
       <div className="p-4">
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">

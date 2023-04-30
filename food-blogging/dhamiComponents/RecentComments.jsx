@@ -10,7 +10,7 @@ const [blogsCommentData, setBlogsCommentData] = useState([]);
 
 //use effect frontend-backend logic
 useEffect(() => {
-axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:'644d52c8c238efbd2c907b91'})
+axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:JSON.parse(localStorage.getItem("user"))._id})
   .then(response => {
     console.log(response.data);
     let tempData=response.data;
@@ -36,7 +36,7 @@ axios.post('https://savorshare.onrender.com/recipe/getbyid',{userid:'644d52c8c23
 const [recipeCommentData, setRecipeCommentData] = useState([]);
 //use effect frontend-backend logic
 useEffect(() => {
-axios.post('https://savorshare.onrender.com/blog/getbyid',{userid:'644d52c8c238efbd2c907b91'})
+axios.post('https://savorshare.onrender.com/blog/getbyid',{userid:JSON.parse(localStorage.getItem("user"))._id})
   .then(response => {
     console.log(response.data);
     let tempData=response.data;

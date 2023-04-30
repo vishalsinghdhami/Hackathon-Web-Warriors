@@ -39,3 +39,14 @@ html {
   font-size: 3rem;
   text-align: start;
 }
+.about {
+  margin-top: 5rem;
+  display: grid;
+  gap: 3rem;
+  font-size: 1.6rem;
+  width: min(50%, 90rem);
+}
+a {
+  color: black !important;
+  text-decoration: none !important;
+}

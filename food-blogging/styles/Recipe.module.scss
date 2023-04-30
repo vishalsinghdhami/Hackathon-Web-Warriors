@@ -2,6 +2,8 @@
   max-width: 50rem;
   display: grid;
   gap: 1rem;
+  max-height: 80vh;
+
   label {
     font-size: 1.6rem;
     text-transform: capitalize;
@@ -38,4 +40,37 @@
       width: 100%;
     }
   }
+}
+.cta {
+  text-align: center;
+  margin: 1rem;
+  font-size: 1.6rem;
+}
+.recipeCover {
+  display: flex;
+  text-transform: capitalize;
+  gap: 1rem;
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  .heading {
+    text-transform: uppercase;
+    color: var(--red);
+    font-family: var(--font-heading);
+  }
+  .right {
+    max-width: 50rem;
+  }
+  .typeofcuisine {
+    border: solid var(--light-pink);
+    width: max-content;
+    padding: 0.2rem 0.4rem;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+.like {
+  color: var(--red);
 }
