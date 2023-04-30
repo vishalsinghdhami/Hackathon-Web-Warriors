@@ -35,3 +35,7 @@ html {
   max-width: 50rem;
   text-align: center;
 }
+.heading.small {
+  font-size: 3rem;
+  text-align: start;
+}

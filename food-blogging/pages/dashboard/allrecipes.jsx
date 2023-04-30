@@ -71,4 +71,4 @@ const Allphotos = () => {
   );
 };
 
-export default allphotos;
+export default Allphotos;

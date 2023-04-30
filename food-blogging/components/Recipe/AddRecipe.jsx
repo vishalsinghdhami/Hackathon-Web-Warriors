@@ -1,22 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "@/styles/Recipe.module.scss";
 import { v4 as uuidv4 } from "uuid";
 import Cta from "../utils/Cta";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "@/components/firebase";
+import { v4 } from "uuid";
+import Image from "next/image";
+import axios from "axios";
 
-export default function AddRecipe() {
+export default function AddRecipe({ setIsOpen }) {
   const [recipe, setRecipe] = useState({
     title: "",
     ingredients: "",
     cookingsteps: [""],
-    photos: [],
+    photos: {},
     typeofcuisine: "",
     mealtype: "",
     restriction: "",
   });
+  const [imageUpload, setImageUpload] = useState(null);
+  const imagesListRef = ref(storage, "data/");
+  const uploadFile = () => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `data/${imageUpload.name}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setRecipe((prev) => ({
+          ...prev,
+          photos: { type: "image", url: url },
+        }));
+      });
+    });
+  };
+  useEffect(() => {
+    listAll(imagesListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setRecipe((prev) => ({
+            ...prev,
+            photos: { title: uuidv4(), url: url },
+          }));
+        });
+      });
+    });
+  }, []);
   const handleChange = (item) => (e) => {
     setRecipe((prev) => ({
       ...prev,
-      [item]: e.target.value.trim().split(","),
+      [item]: e.target.value,
     }));
   };
   const handleCookingChange = (index, event) => {
@@ -37,12 +74,13 @@ export default function AddRecipe() {
   };
   const renderSteps = () => {
     return (
-      <ul>
+      <ul className={styles.steps}>
         {recipe.cookingsteps.map((step, index) => (
           <li key={index}>
             <input
               type="text"
               value={step}
+              placeholder={"step " + (index + 1)}
               onChange={(event) => handleCookingChange(index, event)}
             />
             <button onClick={() => removeStep(index)}>&#10005;</button>
@@ -51,12 +89,27 @@ export default function AddRecipe() {
       </ul>
     );
   };
-
+  function submitForm(e) {
+    e.preventDefault();
+    axios
+      .post("https://savorshare.onrender.com/recipe/add", recipe)
+      .then((data) => console.log(data.data));
+  }
   return (
-    <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
+    <form onSubmit={submitForm} className={styles.form}>
+      <div className={styles.header}>
+        <div className="heading small">Add new recipe</div>
+        <p onClick={() => setIsOpen(false)}>&#10005;</p>
+      </div>
       <div className={styles.imageupload}>
         <label htmlFor="recipe-image">Add an image</label>
-        <input id="recipe-image" placeholder="add image" type="file" />
+        <input
+          type="file"
+          onChange={(event) => {
+            setImageUpload(event.target.files[0]);
+          }}
+        />
+        <span onClick={uploadFile}> Upload Image</span>
       </div>
       <div className={styles.input}>
         <label htmlFor="recipe title">Title: </label>
@@ -78,23 +131,42 @@ export default function AddRecipe() {
       <div className={styles.input}>
         <label>Steps: </label>
         {renderSteps()}
-        <button className={styles.add} onClick={() => addStep("")}>
+        <a className={styles.add} onClick={() => addStep("")}>
           Add Step
-        </button>
+        </a>
       </div>
       <div className={styles.input}>
-        <label htmlFor="typeofcuisine">typeofcuisine:</label>
-        <input type="text" name="typeofcuisine" id="typeofcuisine" />
+        <label htmlFor="typeofcuisine">typeofcuisine: </label>
+        <input
+          type="text"
+          value={recipe.typeofcuisine}
+          name="typeofcuisine"
+          id="typeofcuisine"
+          onChange={handleChange("typeofcuisine")}
+        />
       </div>
       <div className={styles.input}>
-        <label htmlFor="category">Category:</label>
-        <input type="text" name="category" id="category" />
+        <label htmlFor="category">Category: </label>
+        <input
+          type="text"
+          value={recipe.mealtype}
+          name="category"
+          id="category"
+          placeholder="like breakfast, lunch, dinner, veg or non-veg"
+          onChange={handleChange("mealtype")}
+        />
       </div>
       <div className={styles.input}>
-        <label htmlFor="restriction">Dietery restriction:</label>
-        <input type="text" name="restriction" id="restriction" />
+        <label htmlFor="restriction">Dietery restriction: </label>
+        <input
+          type="text"
+          value={recipe.restriction}
+          name="restriction"
+          id="restriction"
+          onChange={handleChange("restriction")}
+        />
       </div>
-      <Cta> Post </Cta>
+      <Cta type="submit">post</Cta>
     </form>
   );
 }

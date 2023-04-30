@@ -78,4 +78,4 @@ axios.post('https://savorshare.onrender.com/blog/getbyid',{userid:'644d52c8c238e
   );
 };
 
-export default  allblogs;
+export default  Allblogs;

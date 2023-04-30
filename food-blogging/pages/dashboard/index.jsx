@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Header from "@/dhamiComponents/Header";
 import TopCards from "@/dhamiComponents/TopCards";
 import BarChartMonthsComments from "@/dhamiComponents/BarChartMonthsComments";
