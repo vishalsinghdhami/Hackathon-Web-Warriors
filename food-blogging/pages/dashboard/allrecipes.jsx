@@ -32,7 +32,6 @@ const Allrecipes = () => {
     >
       <div className="flex justify-between p-4">
         <h2>All Recipes</h2>
-        <h2>Welcome Back, Clint</h2>
       </div>
       <div className="p-4">
         <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
