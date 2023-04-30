@@ -4,7 +4,7 @@ import { BsPersonFill, BsThreeDotsVertical } from "react-icons/bs";
 import { GiCook } from "react-icons/gi";
 import { data } from "@/data/data.js";
 import { useState, useEffect } from "react";
-const Allphotos = () => {
+const Allrecipes = () => {
   //use effect frontend-backend logic
 
   const [recipeData, setRecipeData] = useState([]);
@@ -71,4 +71,4 @@ const Allphotos = () => {
   );
 };
 
-export default Allphotos;
+export default Allrecipes;
