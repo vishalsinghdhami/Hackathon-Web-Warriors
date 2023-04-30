@@ -59,7 +59,9 @@ export default function Navbar() {
         </div>
         <div className={styles.Main}>
           <Container className={styles.Container}>
-            <div className={styles.Logo}>SavorShare</div>
+            <Link href={"/"} className={styles.Logo}>
+              SavorShare
+            </Link>
             <ul className={styles.NavLinks}>
               <li>
                 <Link href={"/recipes"}>Recipes</Link>
@@ -71,7 +73,7 @@ export default function Navbar() {
             <SearchBar />
             {user !== null ? (
               <>
-                <p>{user.name.toUpperCase()}</p>
+                <Link href={"/dashboard"}>{user.name.toUpperCase()}</Link>
                 <Cta onClick={handleLogOut}>Logout</Cta>
               </>
             ) : (

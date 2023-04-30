@@ -1,8 +1,41 @@
 .form {
   max-width: 50rem;
+  display: grid;
+  gap: 1rem;
+  label {
+    font-size: 1.6rem;
+    text-transform: capitalize;
+  }
 }
 .input {
   input {
+    font-size: 1.6rem;
     border: 1px solid;
+    padding: 0.5rem;
+  }
+}
+.add {
+  background-color: var(--light-pink);
+  color: black;
+  padding: 0.5rem 0.7rem;
+  display: block;
+  margin-top: 2rem;
+  width: max-content;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.steps {
+  display: grid;
+  gap: 1rem;
+  li {
+    display: flex;
+    gap: 1rem;
+    width: 50rem;
+    input {
+      width: 100%;
+    }
   }
 }

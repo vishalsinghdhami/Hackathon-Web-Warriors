@@ -11,6 +11,16 @@ html {
   font-size: 62.5%;
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 :root {
   --light-pink: #ffcccc;
   --red: #d63031;
@@ -24,4 +34,8 @@ html {
   text-transform: capitalize;
   max-width: 50rem;
   text-align: center;
+}
+.heading.small {
+  font-size: 3rem;
+  text-align: start;
 }
