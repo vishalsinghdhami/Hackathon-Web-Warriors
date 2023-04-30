@@ -10,7 +10,7 @@ const Allblogs = () => {
   useEffect(() => {
     axios
       .post("https://savorshare.onrender.com/blog/getbyid", {
-        userid: "644d52c8c238efbd2c907b91",
+        userid: localStorage.getItem("user")._id,
       })
       .then((response) => {
         // handle the response data
