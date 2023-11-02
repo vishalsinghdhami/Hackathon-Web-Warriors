@@ -78,7 +78,7 @@ export default function Recipes({ data }) {
                 </div>
                 <div className={styles.right}>
                   <h2 className={styles.heading}>{e.title}</h2>
-                  <p>Ingredients: {e.ingredients}</p>
+                  <p className={styles.ingredients}>Ingredients: {e.ingredients}</p>
                   <div className={styles.row}>
                     <p className={styles.typeofcuisine}>{e.typeofcuisine}</p>
                     <p>{e.mealtype}</p>

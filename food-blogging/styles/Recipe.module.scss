@@ -60,6 +60,12 @@
   .right {
     max-width: 50rem;
   }
+  .ingredients{
+    display: flex;
+    flex-wrap: wrap;
+    overflow: scroll;
+    max-width: 279px;
+  }
   .typeofcuisine {
     border: solid var(--light-pink);
     width: max-content;
@@ -81,4 +87,13 @@
   justify-content: center;
   margin-top: 1rem;
   font-size: 1.6rem;
+}
+@media screen and (max-width: 700px) {
+.recipeCover{
+  flex-direction: column;
+  p{
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
 }

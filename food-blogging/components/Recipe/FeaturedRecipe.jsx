@@ -3,7 +3,7 @@ import styles from "@/styles/Featured.module.scss";
 export default function FeaturedRecipe() {
   return (
     <section className={styles.featured}>
-      <h2 className="heading">Featured Recipes</h2>
+      {/* <h2 className="heading">Featured Recipes</h2>
       <div className={styles.row}>
         <div className={styles.card}>
           <div className={styles.picture}></div>
@@ -29,7 +29,7 @@ export default function FeaturedRecipe() {
           </h3>
           <p className={styles.date}>on 30 March 2023</p>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
